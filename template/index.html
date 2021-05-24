@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Convert JSON Data to HTML Table</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+      th,
+      td,
+      p,
+      input {
+        font: 25px Verdana;
+        
+      }
+      table,
+      th,
+      td {
+        border: solid 1px #ddd;
+        border-collapse: collapse;
+        padding: 2px 3px;
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+        background-color: #4caf50;
+      }
+      as th {
+        font-weight: bold;
+      }
+
+      .containera {
+        height: 200px;
+        position: relative;
+        border: 3px solid green;
+      }
+
+      .vertical-centera {
+        margin: 0;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+      }
+    </style>
+  </head>
+  <body>
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">BANK</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="#">Home</a></li>
+      <li><a href="#">Page 1</a></li>
+      <li><a href="#">Page 2</a></li>
+    </ul>
+    <form class="navbar-form navbar-left" action="#">
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="Search">
+      </div>
+      <button type="submit" class="btn btn-default">Submit</button>
+    </form>
+  </div>
+</nav>
+
+
+</body>
+</html>
+
+    <div class="container">
+      <h3>Banks and Address</h3>
+      <p>you will get the data here.</p>
+    </div>
+    <div class="containera">
+      <div class="vertical-centera">
+        <button onclick="CreateTableFromJSON()">SHOW</button>
+      </div>
+    </div>
+    <p id="showData"></p>
+  </body>
+
+  <script>
+    function CreateTableFromJSON() {
+      var myBooks = [
+        {
+          ifsc: "ABHY0065001",
+          bank_id: 60,
+          branch: "RTGS-HO",
+          address:
+            "ABHYUDAYA BANK BLDG., B.NO.71, NEHRU NAGAR, KURLA (E), MUMBAI-400024",
+          city: "MUMBAI",
+          district: "GREATER MUMBAI",
+          state: "MAHARASHTRA",
+        },
+        {
+          ifsc: "ABNA0000001",
+          bank_id: 110,
+          branch: "RTGS-HO",
+          address:
+            "414 EMPIRE COMPLEX, SENAPATI BAPAT MARG LOWER PAREL WEST MUMBAI 400013",
+          city: "MUMBAI",
+          district: "GREATER BOMBAY",
+          state: "MAHARASHTRA",
+        },
+        {
+          ifsc: "ADCB0000001",
+          bank_id: 143,
+          branch: "RTGS-HO",
+          address: "75, REHMAT MANZIL, V. N. ROAD, CURCHGATE, MUMBAI - 400020",
+          city: "MUMBAI",
+          district: "MUMBAI CITY",
+          state: "MAHARASHTRA",
+        },
+        {
+          ifsc: "ADCC0000001",
+          bank_id: 61,
+          branch: "RTGS-HO",
+          address:
+            "THE AKOLA DISTRICT CENTRAL COOP. BANK LTD., P.B.NO. 8, CIVIL LINES, S.A. COLLEGE ROAD, AKOLA. 444001",
+          city: "AKOLA",
+          district: "AKOLA",
+          state: "MAHARASHTRA",
+        },
+      ];
+
+      var col = [];
+      for (var i = 0; i < myBooks.length; i++) {
+        for (var key in myBooks[i]) {
+          if (col.indexOf(key) === -1) {
+            col.push(key);
+          }
+        }
+      }
+
+      var table = document.createElement("table");
+
+      var tr = table.insertRow(-1);
+      for (var i = 0; i < col.length; i++) {
+        var th = document.createElement("th");
+        th.innerHTML = col[i];
+        tr.appendChild(th);
+      }
+
+      for (var i = 0; i < myBooks.length; i++) {
+        tr = table.insertRow(-1);
+        for (var j = 0; j < col.length; j++) {
+          var tabCell = tr.insertCell(-1);
+          tabCell.innerHTML = myBooks[i][col[j]];
+        }
+      }
+
+      var divContainer = document.getElementById("showData");
+      divContainer.innerHTML = "";
+      divContainer.appendChild(table);
+    }
+  </script>
+</html>
